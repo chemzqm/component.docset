@@ -1,0 +1,26 @@
+<h1 id="popover">Popover</h1>
+<p>  Popover component built on top of <a href="http://github.com/component/tip">Tip</a>.</p>
+<p>  <img src="http://f.cl.ly/items/282X271J2Y1s1P342o02/Screen%20Shot%202012-08-02%20at%205.07.07%20PM.png" alt="js popover component"></p>
+<h2 id="installation">Installation<a href="#installation"></a></h2>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">$ npm install popover-component</code></pre><h2 id="features">Features<a href="#features"></a></h2>
+<ul>
+<li>events for composition</li>
+<li>&quot;auto&quot; positioning</li>
+<li>fluent API</li>
+<li>minimal base styling</li>
+</ul>
+<h2 id="api">API<a href="#api"></a></h2>
+<h3 id="popover-content-title-">Popover(content, [title])<a href="#popover-content-title-"></a></h3>
+<p>  Create a new popover with <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">content</code> being
+  either a string, html, or element, and optional
+  <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">title</code> which may contain html or be an element as well.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> Popover = require(<span class="string" style="color:#2aa198;">'popover'</span>);
+<span class="keyword" style="color:#859900;">var</span> popover = <span class="keyword" style="color:#859900;">new</span> Popover(<span class="string" style="color:#2aa198;">'You have mail!!!'</span>, <span class="string" style="color:#2aa198;">'Mail'</span>);
+popover.show(<span class="string" style="color:#2aa198;">'#avatar'</span>);</code></pre><p> View <a href="http://github.com/component/tip">Tip</a> for additional
+ API documentation.</p>
+<h2 id="themes">Themes<a href="#themes"></a></h2>
+<ul>
+<li><a href="https://github.com/component/aurora-popover">Aurora</a></li>
+</ul>
+<h2 id="license">License<a href="#license"></a></h2>
+<p>  MIT</p>

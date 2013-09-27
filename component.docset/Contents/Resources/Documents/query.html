@@ -1,0 +1,22 @@
+<h1 id="query">query</h1>
+<p>  Query the DOM with selector engine fallback support. This abstraction
+  allows all other components that require dom querying to indirectly support
+  old browsers, without explicitly adding support for them.</p>
+<h2 id="installation">Installation<a href="#installation"></a></h2>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">$ component install component/query</code></pre><h2 id="api">API<a href="#api"></a></h2>
+<h3 id="query-selector-el-">query(selector, [el])<a href="#query-selector-el-"></a></h3>
+<p>  Query <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">selector</code> against the document or <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">el</code>
+  and return a single match.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">query(<span class="string" style="color:#2aa198;">'ul &gt; li'</span>);
+query(<span class="string" style="color:#2aa198;">'ul &gt; li'</span>, articles);</code></pre><h4 id="query-all-selector-el-">query.all(selector, [el])</h4>
+<p>  Query <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">selector</code> against the document or <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">el</code>
+  and return all matches.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">query.all(<span class="string" style="color:#2aa198;">'ul &gt; li'</span>);
+query.all(<span class="string" style="color:#2aa198;">'ul &gt; li'</span>, articles);</code></pre><h2 id="fallback-engines">Fallback engines<a href="#fallback-engines"></a></h2>
+<p>  Currently supported:</p>
+<ul>
+<li><a href="https://github.com/component/query-zest">query-zest</a></li>
+<li><a href="https://github.com/jamischarles/query-qwery">query-qwery</a></li>
+</ul>
+<h2 id="license">License<a href="#license"></a></h2>
+<p>  MIT</p>

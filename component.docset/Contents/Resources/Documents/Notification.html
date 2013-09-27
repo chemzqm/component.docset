@@ -1,0 +1,54 @@
+<h1 id="notification">Notification</h1>
+<p>  Notification component with a clean slate to build off of,
+  style and position them however you like.</p>
+<p>  <img src="http://f.cl.ly/items/143P3r3X1E1m0Y0a2E2l/Screen%20Shot%202012-07-26%20at%203.16.11%20PM.png" alt="js growl component"></p>
+<p>  These don&#39;t <em>have</em> to look like growl style notifications, use
+  your trusty friend CSS.</p>
+<h2 id="installation">Installation<a href="#installation"></a></h2>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">$ component install component/notification</code></pre><h2 id="features">Features<a href="#features"></a></h2>
+<ul>
+<li>events for composition</li>
+<li>structural CSS letting you decide on style</li>
+<li>transient notifications</li>
+<li>transient closable notifications</li>
+<li>sticky (implicitly closable) notifications</li>
+<li>notification classes (info, warn, error)</li>
+<li>fluent API</li>
+</ul>
+<h2 id="events">Events<a href="#events"></a></h2>
+<ul>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">close</code> the notification is closed via the X</li>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">click</code> the notification is clicked</li>
+</ul>
+<h2 id="api">API<a href="#api"></a></h2>
+<h3 id="notify-msg-">notify(msg)<a href="#notify-msg-"></a></h3>
+<p>  Notify with the given <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">msg</code> and no title. The
+  notification will hide after 4 seconds by default.</p>
+<h3 id="notify-title-msg-">notify(title, msg)</h3>
+<p>  Notify with the given <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">msg</code> and <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">title</code>. The
+  notification will hide after 4 seconds by default.</p>
+<h3 id="notify-info-title-msg-">notify.info(title, [msg])<a href="#notify-info-title-msg-"></a></h3>
+<p>  Same as <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">notify()</code></p>
+<h3 id="notify-warn-title-msg-">notify.warn(title, [msg])<a href="#notify-warn-title-msg-"></a></h3>
+<p>  Same as <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">notify()</code> with a <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">warn</code> class for styling.</p>
+<h3 id="notify-error-title-msg-">notify.error(title, [msg])<a href="#notify-error-title-msg-"></a></h3>
+<p>  Same as <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">notify()</code> with a <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">error</code> class for styling.</p>
+<h3 id="-sticky-">.sticky()<a href="#-sticky-"></a></h3>
+<p>  Make the notification sticky, aka it will not close
+  automatically, and it will automatically be <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">.closable()</code>.</p>
+<h3 id="-show-">.show()<a href="#-show-"></a></h3>
+<p>  Show the notification.</p>
+<h3 id="-hide-">.hide()<a href="#-hide-"></a></h3>
+<p>  Show the notification.</p>
+<h3 id="-closable-">.closable()<a href="#-closable-"></a></h3>
+<p>  Mark the notification as closable, adding an &quot;X&quot; so the user
+  may explicitly close it.</p>
+<h3 id="-effect-name-">.effect(name)<a href="#-effect-name-"></a></h3>
+<p>  One of the following effects, or define your own with class <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">name</code>:</p>
+<ul>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">slide</code></li>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">fade</code></li>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">scale</code></li>
+</ul>
+<h2 id="license">License<a href="#license"></a></h2>
+<p>  MIT</p>

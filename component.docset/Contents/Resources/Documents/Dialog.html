@@ -1,0 +1,53 @@
+<h1 id="dialog">Dialog</h1>
+<p>  Dialog component with structural styling to give you a clean slate.</p>
+<p>  <img src="http://f.cl.ly/items/0r140j3W323T3c3i2H3a/Screen%20Shot%202012-07-26%20at%203.11.20%20PM.png" alt="js dialog component"></p>
+<h2 id="installation">Installation<a href="#installation"></a></h2>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">$ component install component/dialog</code></pre><h2 id="features">Features<a href="#features"></a></h2>
+<ul>
+<li>events for composition</li>
+<li>structural CSS letting you decide on style</li>
+<li>overlay support</li>
+<li>modal overlay support</li>
+<li>escapable (esc key support)</li>
+<li>fluent API</li>
+</ul>
+<h2 id="events">Events<a href="#events"></a></h2>
+<ul>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">show</code> the dialog is shown</li>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">hide</code> the dialog is hidden</li>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">escape</code> the dialog was closed via the escape key</li>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">close</code> the dialog was closed via the close button</li>
+</ul>
+<h2 id="api">API<a href="#api"></a></h2>
+<h3 id="dialog-msg-">dialog(msg)<a href="#dialog-msg-"></a></h3>
+<p>  Display a dialog with a <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">msg</code> only.</p>
+<h3 id="dialog-title-msg-">dialog(title, msg)</h3>
+<p>  Display a dialog with <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">title</code> and <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">msg</code>.</p>
+<h3 id="-closable-">.closable()<a href="#-closable-"></a></h3>
+<p>  Make the dialog closable, this adds a ×
+  that users make click to forcefully close
+  the dialog.</p>
+<h3 id="-effect-name-">.effect(name)<a href="#-effect-name-"></a></h3>
+<p>  Assign the effect name, driven by CSS transitions.
+  Out of the box the following are available:</p>
+<ul>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">slide</code></li>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">fade</code></li>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">scale</code></li>
+</ul>
+<h3 id="-overlay-">.overlay()<a href="#-overlay-"></a></h3>
+<p>  Add a clickable overlay, which closes the dialog.</p>
+<h3 id="-modal-">.modal()<a href="#-modal-"></a></h3>
+<p>  Add a non-clickable overlay making it modal.</p>
+<h3 id="-escapable-">.escapable()<a href="#-escapable-"></a></h3>
+<p>  This is <strong>private</strong> as it is implied by other options.
+  If no overlay is used, or the overlay is non-modal
+  then a user may close the dialog by pressing the escape key.</p>
+<h3 id="-show-">.show()<a href="#-show-"></a></h3>
+<p>  Show the dialog.</p>
+<h3 id="-hide-ms-">.hide([ms])<a href="#-hide-ms-"></a></h3>
+<p>  Hide the dialog immediately or wait <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">ms</code>.</p>
+<h3 id="-addclass-name-">.addClass(name)<a href="#-addclass-name-"></a></h3>
+<p>  Add class <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">name</code>, useful for styling dialogs differently.</p>
+<h2 id="license">License<a href="#license"></a></h2>
+<p>  MIT</p>

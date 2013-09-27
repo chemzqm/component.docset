@@ -1,0 +1,191 @@
+<h1 id="dom">dom</h1>
+<p>  jQuery inspired DOM traversal / manipulation component. Aggregates the
+  following components to create a more familiar experience when you need
+  the combined functionality of:</p>
+<ul>
+<li><a href="http://github.com/component/domify">domify</a> to convert HTML to DOM nodes</li>
+<li><a href="http://github.com/component/query">query</a> for selector engine integration</li>
+<li><a href="http://github.com/component/classes">classes</a> to add, remove, and toggle classes</li>
+<li><a href="http://github.com/component/delegate">delegate</a> for event delegation</li>
+<li><a href="http://github.com/component/event">event</a> for event binding</li>
+<li><a href="http://github.com/component/value">value</a> for form field values</li>
+<li><a href="http://github.com/component/sort">sort</a> for sorting elements</li>
+<li><a href="http://github.com/component/type">type</a> for type checking</li>
+<li><a href="http://github.com/component/css">css</a> for style properties</li>
+</ul>
+<h2 id="installation">Installation<a href="#installation"></a></h2>
+<p>  With <a href="https://github.com/component/component">component</a>:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">$ component install component/dom</code></pre><h2 id="stand-alone">Stand-alone<a href="#stand-alone"></a></h2>
+<p>  This library may be used stand-alone without the component
+  tool, simply add ./dom.js to your application and reference
+  the <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">dom</code> global. With all its dependencies dom is the following size:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">   28K  dom.js
+   16K  dom.min.js
+  8.0K  dom.js.gz
+  4.0K  dom.min.js.gz</code></pre><h2 id="example">Example<a href="#example"></a></h2>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> dom = require(<span class="string" style="color:#2aa198;">'dom'</span>);
+
+dom(<span class="string" style="color:#2aa198;">'li'</span>).select(<span class="keyword" style="color:#859900;">function</span>(el){
+  <span class="keyword" style="color:#859900;">return</span> el.text() == <span class="string" style="color:#2aa198;">'Maru'</span>;
+}).addClass(<span class="string" style="color:#2aa198;">'amazing'</span>);</code></pre><h2 id="api">API<a href="#api"></a></h2>
+<p>  All occurrances of <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">list</code> refer to:</p>
+<ul>
+<li>an element passed</li>
+<li>a string of html</li>
+<li>a selector string</li>
+<li>a node list</li>
+<li>an array of nodes</li>
+<li>a dom <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">List</code> itself</li>
+</ul>
+<h3 id="dom-list-">dom(list)<a href="#dom-list-"></a></h3>
+<p>  Return a <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">List</code> with the given element(s)
+  via selector, html, arrays, nodelists, etc.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">dom(<span class="string" style="color:#2aa198;">'ul li'</span>);
+dom(dom(<span class="string" style="color:#2aa198;">'a'</span>));
+dom(<span class="string" style="color:#2aa198;">'&lt;p&gt;Hello&lt;/p&gt;'</span>);</code></pre><h3 id="-append-list-">.append(list)<a href="#-append-list-"></a></h3>
+<p>  Append and return <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">list</code>:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">dom(<span class="string" style="color:#2aa198;">'ul'</span>)
+  .append(<span class="string" style="color:#2aa198;">'&lt;li&gt;Tobi&lt;/li&gt;'</span>)
+  .addClass(<span class="string" style="color:#2aa198;">'user'</span>);</code></pre><h3 id="-prepend-list-">.prepend(list)<a href="#-prepend-list-"></a></h3>
+<p>  Prepend and return <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">list</code>:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">dom(<span class="string" style="color:#2aa198;">'ul'</span>)
+  .prepend(<span class="string" style="color:#2aa198;">'&lt;li&gt;Tobi&lt;/li&gt;'</span>)
+  .addClass(<span class="string" style="color:#2aa198;">'user'</span>);</code></pre><h3 id="-insertafter-list-">.insertAfter(list)<a href="#-insertafter-list-"></a></h3>
+<p>  Insert after:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">dom(<span class="string" style="color:#2aa198;">'&lt;div&gt;&lt;/div&gt;'</span>)
+  .insertAfter(<span class="string" style="color:#2aa198;">'body'</span>);</code></pre><h3 id="-on-event-fn-capture-">.on(event, fn, [capture])<a href="#-on-event-fn-capture-"></a></h3>
+<p>  Bind <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">event</code> handler function:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">dom(<span class="string" style="color:#2aa198;">'a.remove'</span>).on(<span class="string" style="color:#2aa198;">'click'</span>, <span class="keyword" style="color:#859900;">function</span>(e){
+
+});</code></pre><h3 id="-on-event-selector-fn-capture-">.on(event, selector, fn, [capture])</h3>
+<p>  Bind delegate <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">event</code> handler function for <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">selector</code>:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">dom(<span class="string" style="color:#2aa198;">'ul li'</span>).on(<span class="string" style="color:#2aa198;">'click'</span>, <span class="string" style="color:#2aa198;">'a.remove'</span>, <span class="keyword" style="color:#859900;">function</span>(e){
+
+});</code></pre><h3 id="-off-event-fn-capture-">.off(event, fn, [capture])<a href="#-off-event-fn-capture-"></a></h3>
+<p>  Unbind <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">event</code> callback <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">fn</code>.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">dom(<span class="string" style="color:#2aa198;">'a.remove'</span>).off(<span class="string" style="color:#2aa198;">'click'</span>, onremove);</code></pre><h3 id="-off-event-selector-fn-capture-">.off(event, selector, fn, [capture])</h3>
+<p>  Unbind delegate <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">event</code> callback <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">fn</code> with <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">selector</code>.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">dom(<span class="string" style="color:#2aa198;">'ul li'</span>).off(<span class="string" style="color:#2aa198;">'click'</span>, <span class="string" style="color:#2aa198;">'a.remove'</span>, onremove);</code></pre><h3 id="-appendto-list-">.appendTo(list)<a href="#-appendto-list-"></a></h3>
+<p>  Append elements in the list to <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">list</code>
+  and return itself for chaining.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">dom(<span class="string" style="color:#2aa198;">'&lt;li&gt;Tobi&lt;/li&gt;'</span>)
+  .appendTo(<span class="string" style="color:#2aa198;">'ul'</span>)
+  .addClass(<span class="string" style="color:#2aa198;">'user'</span>);</code></pre><h3 id="-attr-name-">.attr(name)<a href="#-attr-name-"></a></h3>
+<p>  Return value for attribute <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">name</code>:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> url = dom(<span class="string" style="color:#2aa198;">'img'</span>).attr(<span class="string" style="color:#2aa198;">'src'</span>);</code></pre><h3 id="-attr-name-val-">.attr(name, val)</h3>
+<p>  Set attribute <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">name</code> to <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">val</code>.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">dom(<span class="string" style="color:#2aa198;">'img'</span>).attr(<span class="string" style="color:#2aa198;">'src'</span>, <span class="string" style="color:#2aa198;">'image/of/maru.jpg'</span>);</code></pre><h3 id="-attr-">.ATTR()<a href="#-attr-"></a></h3>
+<p>  Attribute getters. These are functionally equivalent
+  to <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">.attr(ATTR)</code>:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">el.id()
+el.src()
+el.rel()
+el.cols()
+el.rows()
+el.name()
+el.href()
+el.title()
+el.style()
+el.tabindex()
+el.placeholder()</code></pre><h3 id="-attr-val-">.ATTR(val)</h3>
+<p>  Attribute setters. These are functionally equivalent
+  to <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">.attr(ATTR, val)</code>:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">el.id(<span class="string" style="color:#2aa198;">'item-1'</span>)
+el.src(<span class="string" style="color:#2aa198;">'some/image.png'</span>)
+el.rel(<span class="string" style="color:#2aa198;">'stylesheet'</span>)
+el.cols(<span class="number" style="color:#2aa198;">2</span>)
+el.rows(<span class="number" style="color:#2aa198;">3</span>)
+el.name(<span class="string" style="color:#2aa198;">'username'</span>)
+el.href(<span class="string" style="color:#2aa198;">'http://google.com'</span>)
+el.title(<span class="string" style="color:#2aa198;">'Maru the cat'</span>)
+el.style(<span class="string" style="color:#2aa198;">'color: white'</span>)
+el.tabindex(<span class="number" style="color:#2aa198;">2</span>)
+el.placeholder(<span class="string" style="color:#2aa198;">'Username'</span>)</code></pre><h3 id="-css-prop-">.css(prop)<a href="#-css-prop-"></a></h3>
+<p>  Get css property value:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">dom(el).css(<span class="string" style="color:#2aa198;">'width'</span>);</code></pre><h3 id="-css-prop-val-">.css(prop, val)</h3>
+<p>  Set css property value:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">dom(el).css(<span class="string" style="color:#2aa198;">'width'</span>, <span class="string" style="color:#2aa198;">'300px'</span>);</code></pre><h3 id="-css-object-">.css(object)</h3>
+<p>  Set css property values:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">dom(el).css({
+  top: <span class="number" style="color:#2aa198;">5</span>,
+  left: <span class="number" style="color:#2aa198;">10</span>
+});</code></pre><h3 id="-addclass-name-">.addClass(name)<a href="#-addclass-name-"></a></h3>
+<p>  Add a class <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">name</code> to all elements in the list.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">dom(<span class="string" style="color:#2aa198;">'img'</span>).addClass(<span class="string" style="color:#2aa198;">'loading'</span>);</code></pre><h3 id="-removeclass-name-">.removeClass(name)<a href="#-removeclass-name-"></a></h3>
+<p>  Remove class <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">name</code> to all elements in the list.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">dom(<span class="string" style="color:#2aa198;">'img.loading'</span>).removeClass(<span class="string" style="color:#2aa198;">'loading'</span>);</code></pre><h3 id="-toggleclass-name-bool-">.toggleClass(name, [bool])<a href="#-toggleclass-name-bool-"></a></h3>
+<p>  Toggle class <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">name</code>, with optional <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">bool</code>.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">dom(<span class="string" style="color:#2aa198;">'img'</span>).toggleClass(<span class="string" style="color:#2aa198;">'loading'</span>);
+dom(<span class="string" style="color:#2aa198;">'img'</span>).toggleClass(<span class="string" style="color:#2aa198;">'loading'</span>, image.pending);</code></pre><h3 id="-hasclass-name-">.hasClass(name)<a href="#-hasclass-name-"></a></h3>
+<p>  Check if any element in the list has the given class <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">name</code>.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">dom(<span class="string" style="color:#2aa198;">'img'</span>).hasClass(<span class="string" style="color:#2aa198;">'loading'</span>);</code></pre><h3 id="-find-selector-">.find(selector)<a href="#-find-selector-"></a></h3>
+<p>  Return a list of descendants matching <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">selector</code>.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">dom(<span class="string" style="color:#2aa198;">'.uploads'</span>).find(<span class="string" style="color:#2aa198;">'.complete'</span>).remove();</code></pre><h3 id="-each-fn-">.each(fn)<a href="#-each-fn-"></a></h3>
+<p>  Iterate elements passing each one as a list, and its index:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">dom(<span class="string" style="color:#2aa198;">'ul li'</span>).each(<span class="keyword" style="color:#859900;">function</span>(li, i){
+  <span class="keyword" style="color:#859900;">if</span> (li.hasClass(<span class="string" style="color:#2aa198;">'complete'</span>)) {
+    li.remove();
+  }
+});</code></pre><h3 id="-empty-">.empty()<a href="#-empty-"></a></h3>
+<p>  Empties the elements.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> list = dom(<span class="string" style="color:#2aa198;">'&lt;div&gt;&lt;a href="/meow.html"&gt;cute kitty&lt;/a&gt;&lt;/div&gt;'</span>);
+assert(<span class="string" style="color:#2aa198;">''</span> == list.empty().html());</code></pre><h3 id="-foreach-fn-">.forEach(fn)<a href="#-foreach-fn-"></a></h3>
+<p>  Iterate elements passing each one, and its index:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">dom(<span class="string" style="color:#2aa198;">'ul li'</span>).forEach(<span class="keyword" style="color:#859900;">function</span>(li, i){
+  <span class="keyword" style="color:#859900;">if</span> (li.className == <span class="string" style="color:#2aa198;">'complete'</span>) {
+    li.parentNode.removeChild(li);
+  }
+});</code></pre><h3 id="-map-fn-">.map(fn)<a href="#-map-fn-"></a></h3>
+<p>  Return an array with map <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">fn</code>, passing each element as a list:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> hrefs = dom(<span class="string" style="color:#2aa198;">'a'</span>).forEach(<span class="keyword" style="color:#859900;">function</span>(a){
+  <span class="keyword" style="color:#859900;">return</span> a.attr(<span class="string" style="color:#2aa198;">'href'</span>);
+});</code></pre><h3 id="-select-fn-">.select(fn)<a href="#-select-fn-"></a></h3>
+<p>  Filter elements with the given function, passing each element
+  as a list. This method is aliased as <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">.filter(fn)</code>.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> pending = dom(<span class="string" style="color:#2aa198;">'ul li'</span>).select(<span class="keyword" style="color:#859900;">function</span>(li){
+  <span class="keyword" style="color:#859900;">return</span> li.hasClass(<span class="string" style="color:#2aa198;">'pending'</span>);
+});</code></pre><h3 id="-reject-fn-">.reject(fn)<a href="#-reject-fn-"></a></h3>
+<p>  Reject elements with the given function, passing each element
+  as a list.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> pending = dom(<span class="string" style="color:#2aa198;">'ul li'</span>).reject(<span class="keyword" style="color:#859900;">function</span>(li){
+  <span class="keyword" style="color:#859900;">return</span> li.hasClass(<span class="string" style="color:#2aa198;">'pending'</span>);
+});</code></pre><h3 id="-first-">.first()<a href="#-first-"></a></h3>
+<p>  Return a <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">List</code> containing the first element:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">dom(<span class="string" style="color:#2aa198;">'ul li'</span>).first().remove();</code></pre><h3 id="-last-">.last()<a href="#-last-"></a></h3>
+<p>  Return a <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">List</code> containing the last element:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">dom(<span class="string" style="color:#2aa198;">'ul li'</span>).last().remove();</code></pre><h3 id="-length-">.length()<a href="#-length-"></a></h3>
+<p>  Return the number of elements in the list.</p>
+<h3 id="-html-">.html()<a href="#-html-"></a></h3>
+<p>  Return the inner html.</p>
+<h3 id="-html-str-">.html(str)</h3>
+<p>  Set the inner html to <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">str</code>.</p>
+<h3 id="-text-">.text()<a href="#-text-"></a></h3>
+<p>  Return the text content.</p>
+<h3 id="-text-str-">.text(str)</h3>
+<p>  Set text content to <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">str</code>.</p>
+<h3 id="-clone-">.clone()<a href="#-clone-"></a></h3>
+<p>  Return a cloned list of cloned nodes.</p>
+<h3 id="-get-i-">.get(i)<a href="#-get-i-"></a></h3>
+<p>  Return the <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">i</code>th element.</p>
+<h3 id="-at-i-">.at(i)<a href="#-at-i-"></a></h3>
+<p>  Return a <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">List</code> containing the <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">i</code>th element.</p>
+<h2 id="enumerable">Enumerable<a href="#enumerable"></a></h2>
+<p>  This library supports <a href="http://github.com/component/enumerable">component/enumerable</a>, for example:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">
+<span class="keyword" style="color:#859900;">var</span> _ = require(<span class="string" style="color:#2aa198;">'enumerable'</span>)
+<span class="keyword" style="color:#859900;">var</span> dom = require(<span class="string" style="color:#2aa198;">'dom'</span>)
+
+<span class="keyword" style="color:#859900;">var</span> ul = <span class="string" style="color:#2aa198;">'&lt;ul&gt;&lt;li&gt;Tobi&lt;/li&gt;&lt;li&gt;Loki&lt;/li&gt;&lt;li&gt;Jane&lt;/li&gt;&lt;/ul&gt;'</span>;
+<span class="keyword" style="color:#859900;">var</span> list = dom(ul);
+
+<span class="keyword" style="color:#859900;">var</span> name = _(list.find(<span class="string" style="color:#2aa198;">'li'</span>)).map(<span class="string" style="color:#2aa198;">'text()'</span>).first();
+assert(<span class="string" style="color:#2aa198;">'Tobi'</span> == name)</code></pre><h2 id="notes">Notes<a href="#notes"></a></h2>
+<p>  It is recommended that you do <em>not</em> depend on this library directly
+  when creating public components, unless you require most or all of
+  the functionality provided. Otherwise it is preferred that you use
+  the smaller more specific components.</p>
+<p>  This lib will not include <em>any</em> XHR support, js animations, promises, or anything
+  else out of scope. This library is for DOM manipulation, traversal, and events only.</p>
+<p>  This library is <em>not</em> aiming for feature parity with jQuery.</p>
+<h2 id="license">License<a href="#license"></a></h2>
+<p>  MIT</p>

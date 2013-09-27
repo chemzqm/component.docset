@@ -1,0 +1,45 @@
+<h1 id="configurable">configurable</h1>
+<p>  Configuration mixin.</p>
+<h2 id="installation">Installation<a href="#installation"></a></h2>
+<p>Nodejs</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">$ npm install configurable</code></pre><p>Component</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">$ component install visionmedia/configurable.js</code></pre><h2 id="api">API<a href="#api"></a></h2>
+<p> Make something configurable:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> Configurable = require(<span class="string" style="color:#2aa198;">'configurable.js'</span>);
+
+<span class="comment" style="color:#93a1a1;font-style:italic;">// plain obj</span>
+<span class="keyword" style="color:#859900;">var</span> obj = {};
+Configurable(obj);
+
+<span class="comment" style="color:#93a1a1;font-style:italic;">// returns the obj itself</span>
+<span class="keyword" style="color:#859900;">var</span> obj = Configurable({});
+
+<span class="comment" style="color:#93a1a1;font-style:italic;">// make a prototype configurable</span>
+Configurable(MyThing.prototype);</code></pre><p>The object will then have the following methods available:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">.get(name)
+.set(name, val)
+.set(obj)
+.enable(name)
+.disable(name)
+.enabled(name)
+.disabled(name)</code></pre><p><strong>NOTE</strong>: when assigning to a <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">.prototype</code> make sure to re-define <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">.settings = {}</code>
+in the constructor so objects do not share these values.</p>
+<h2 id="license">License<a href="#license"></a></h2>
+<p>(The MIT License)</p>
+<p>Copyright (c) 2012 TJ Holowaychuk &lt;tj@vision-media.ca&gt;</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+&#39;Software&#39;), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED &#39;AS IS&#39;, WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>

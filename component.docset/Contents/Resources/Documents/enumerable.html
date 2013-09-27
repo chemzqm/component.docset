@@ -1,0 +1,127 @@
+<h1 id="enumerable">Enumerable</h1>
+<p>  Enumerable mixin.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">users
+  .map(<span class="string" style="color:#2aa198;">'friends'</span>)
+  .select(<span class="string" style="color:#2aa198;">'age &gt; 20'</span>)
+  .map(<span class="string" style="color:#2aa198;">'name.first'</span>)
+  .select(<span class="regexp" style="color:#2aa198;">/^T/</span>)</code></pre><h2 id="installation">Installation<a href="#installation"></a></h2>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">$ component install component/enumerable</code></pre><h2 id="implementation">Implementation<a href="#implementation"></a></h2>
+<p>  Nearly all methods utilize the <a href="https://github.com/component/to-function">to-function</a>
+  component, which converts the argument passed to a function. For example
+  <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">.map(&#39;name.first&#39;)</code> expands to a function effectively defined as <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">return obj.name.first</code>,
+  likewise <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">.select(/^Tobi/)</code> expands to <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">return /^Tobi/.test(str)</code> and so on. For details
+  check out to-function&#39;s Readme and familiarize yourself since all of that is applicable
+  to Enumerable.</p>
+<h2 id="api">API<a href="#api"></a></h2>
+<ul>
+<li><a href="#mixin">mixin()</a></li>
+<li><a href="#eachfnfunction">.each()</a></li>
+<li><a href="#mapfnfunction">.map()</a></li>
+<li><a href="#selectfnfunctionstring">.select()</a></li>
+<li><a href="#unique">.unique()</a></li>
+<li><a href="#rejectfnfunctionstringmixed">.reject()</a></li>
+<li><a href="#compact">.compact()</a></li>
+<li><a href="#findfnfunction">.find()</a></li>
+<li><a href="#findlastfnfunction">.findLast()</a></li>
+<li><a href="#nonefnfunctionstring">.none()</a></li>
+<li><a href="#anyfnfunction">.any()</a></li>
+<li><a href="#countfnfunction">.count()</a></li>
+<li><a href="#indexofobjmixed">.indexOf()</a></li>
+<li><a href="#hasobjmixed">.has()</a></li>
+<li><a href="#reducefnfunctionvalmixed">.reduce()</a></li>
+<li><a href="#maxfnfunctionstring">.max()</a></li>
+<li><a href="#sumfnfunctionstring">.sum()</a></li>
+<li><a href="#firstnnumberfunction">.first()</a></li>
+<li><a href="#lastnnumberfunction">.last()</a></li>
+<li><a href="#ingroupsofnnumber">.inGroupsOf()</a></li>
+<li><a href="#atinumber">.at()</a></li>
+<li><a href="#value">.value()</a></li>
+</ul>
+<h3 id="enumerable-">Enumerable()<a href="#enumerable-"></a></h3>
+<p>  Mixin to <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">obj</code>.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"> <span class="keyword" style="color:#859900;">var</span> Enumerable = require(<span class="string" style="color:#2aa198;">'enumerable'</span>);
+ Enumerable(Something.prototype);</code></pre><h3 id="-each-fn-function-">.each(fn:Function)<a href="#-each-fn-function-"></a></h3>
+<p>  Iterate each value and invoke <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">fn(val, i)</code>.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"> users.each(<span class="keyword" style="color:#859900;">function</span>(val, i){
+
+ })</code></pre><h3 id="-map-fn-function-">.map(fn:Function)<a href="#-map-fn-function-"></a></h3>
+<p>  Map each return value from <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">fn(val, i)</code>.</p>
+<p>  Passing a callback function:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"> users.map(<span class="keyword" style="color:#859900;">function</span>(user){
+   <span class="keyword" style="color:#859900;">return</span> user.name.first
+ })</code></pre><p>  Passing a property string:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"> users.map(<span class="string" style="color:#2aa198;">'name.first'</span>)</code></pre><h3 id="-select-fn-function-string-">.select(fn:Function|String)<a href="#-select-fn-function-string-"></a></h3>
+<p>  Select all values that return a truthy value of <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">fn(val, i)</code>.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"> users.select(<span class="keyword" style="color:#859900;">function</span>(user){
+   <span class="keyword" style="color:#859900;">return</span> user.age &gt; <span class="number" style="color:#2aa198;">20</span>
+ })</code></pre><p>   With a property:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"> items.select(<span class="string" style="color:#2aa198;">'complete'</span>)</code></pre><h3 id="-unique-">.unique()<a href="#-unique-"></a></h3>
+<p>  Select all unique values.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"> nums.unique()</code></pre><h3 id="-reject-fn-function-string-mixed-">.reject(fn:Function|String|Mixed)<a href="#-reject-fn-function-string-mixed-"></a></h3>
+<p>  Reject all values that return a truthy value of <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">fn(val, i)</code>.</p>
+<p>  Rejecting using a callback:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"> users.reject(<span class="keyword" style="color:#859900;">function</span>(user){
+   <span class="keyword" style="color:#859900;">return</span> user.age &lt; <span class="number" style="color:#2aa198;">20</span>
+ })</code></pre><p>  Rejecting with a property:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"> items.reject(<span class="string" style="color:#2aa198;">'complete'</span>)</code></pre><p>  Rejecting values via <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">==</code>:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"> data.reject(<span class="literal">null</span>)
+ users.reject(toni)</code></pre><h3 id="-compact-">.compact()<a href="#-compact-"></a></h3>
+<p>  Reject <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">null</code> and <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">undefined</code>.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"> [<span class="number" style="color:#2aa198;">1</span>, <span class="literal">null</span>, <span class="number" style="color:#2aa198;">5</span>, <span class="literal">undefined</span>].compact()
+ <span class="comment" style="color:#93a1a1;font-style:italic;">// =&gt; [1,5]</span></code></pre><h3 id="-find-fn-function-">.find(fn:Function)<a href="#-find-fn-function-"></a></h3>
+<p>  Return the first value when <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">fn(val, i)</code> is truthy,
+  otherwise return <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">undefined</code>.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"> users.find(<span class="keyword" style="color:#859900;">function</span>(user){
+   <span class="keyword" style="color:#859900;">return</span> user.role == <span class="string" style="color:#2aa198;">'admin'</span>
+ })</code></pre><h3 id="-findlast-fn-function-">.findLast(fn:Function)<a href="#-findlast-fn-function-"></a></h3>
+<p>  Return the last value when <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">fn(val, i)</code> is truthy,
+  otherwise return <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">undefined</code>.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"> users.findLast(<span class="keyword" style="color:#859900;">function</span>(user){
+   <span class="keyword" style="color:#859900;">return</span> user.role == <span class="string" style="color:#2aa198;">'admin'</span>
+ })</code></pre><h3 id="-none-fn-function-string-">.none(fn:Function|String)<a href="#-none-fn-function-string-"></a></h3>
+<p>  Assert that none of the invocations of <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">fn(val, i)</code> are truthy.</p>
+<p>  For example ensuring that no pets are admins:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"> pets.none(<span class="keyword" style="color:#859900;">function</span>(p){ <span class="keyword" style="color:#859900;">return</span> p.admin })
+ pets.none(<span class="string" style="color:#2aa198;">'admin'</span>)</code></pre><h3 id="-any-fn-function-">.any(fn:Function)<a href="#-any-fn-function-"></a></h3>
+<p>  Assert that at least one invocation of <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">fn(val, i)</code> is truthy.</p>
+<p>  For example checking to see if any pets are ferrets:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"> pets.any(<span class="keyword" style="color:#859900;">function</span>(pet){
+   <span class="keyword" style="color:#859900;">return</span> pet.species == <span class="string" style="color:#2aa198;">'ferret'</span>
+ })</code></pre><h3 id="-count-fn-function-">.count(fn:Function)<a href="#-count-fn-function-"></a></h3>
+<p>  Count the number of times <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">fn(val, i)</code> returns true.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"> <span class="keyword" style="color:#859900;">var</span> n = pets.count(<span class="keyword" style="color:#859900;">function</span>(pet){
+   <span class="keyword" style="color:#859900;">return</span> pet.species == <span class="string" style="color:#2aa198;">'ferret'</span>
+ })</code></pre><h3 id="-indexof-obj-mixed-">.indexOf(obj:Mixed)<a href="#-indexof-obj-mixed-"></a></h3>
+<p>  Determine the indexof <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">obj</code> or return <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">-1</code>.</p>
+<h3 id="-has-obj-mixed-">.has(obj:Mixed)<a href="#-has-obj-mixed-"></a></h3>
+<p>  Check if <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">obj</code> is present in this enumerable.</p>
+<h3 id="-reduce-fn-function-val-mixed-">.reduce(fn:Function, [val]:Mixed)<a href="#-reduce-fn-function-val-mixed-"></a></h3>
+<p>  Reduce with <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">fn(accumulator, val, i)</code> using
+  optional <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">init</code> value defaulting to the first
+  enumerable value.</p>
+<h3 id="-max-fn-function-string-">.max(fn:Function|String)<a href="#-max-fn-function-string-"></a></h3>
+<p>  Determine the max value.</p>
+<p>  With a callback function:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"> pets.max(<span class="keyword" style="color:#859900;">function</span>(pet){
+   <span class="keyword" style="color:#859900;">return</span> pet.age
+ })</code></pre><p>  With property strings:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"> pets.max(<span class="string" style="color:#2aa198;">'age'</span>)</code></pre><p>  With immediate values:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"> nums.max()</code></pre><h3 id="-sum-fn-function-string-">.sum(fn:Function|String)<a href="#-sum-fn-function-string-"></a></h3>
+<p>  Determine the sum.</p>
+<p>  With a callback function:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"> pets.sum(<span class="keyword" style="color:#859900;">function</span>(pet){
+   <span class="keyword" style="color:#859900;">return</span> pet.age
+ })</code></pre><p>  With property strings:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"> pets.sum(<span class="string" style="color:#2aa198;">'age'</span>)</code></pre><p>  With immediate values:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"> nums.sum()</code></pre><h3 id="-first-n-number-function-">.first([n]:Number|Function)<a href="#-first-n-number-function-"></a></h3>
+<p>  Return the first value, or first <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">n</code> values.</p>
+<h3 id="-last-n-number-function-">.last([n]:Number|Function)<a href="#-last-n-number-function-"></a></h3>
+<p>  Return the last value, or last <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">n</code> values.</p>
+<h3 id="-ingroupsof-n-number-">.inGroupsOf(n:Number)<a href="#-ingroupsof-n-number-"></a></h3>
+<p>  Return values in groups of <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">n</code>.</p>
+<h3 id="-at-i-number-">.at(i:Number)<a href="#-at-i-number-"></a></h3>
+<p>  Return the value at the given index.</p>
+<h3 id="-value-">.value()<a href="#-value-"></a></h3>
+<p>  Return the enumerable value.</p>
+<h2 id="license">License<a href="#license"></a></h2>
+<p>  MIT</p>

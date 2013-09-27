@@ -1,0 +1,33 @@
+<h1 id="emitter">Emitter</h1>
+<p>  Event emitter component.</p>
+<h2 id="installation">Installation<a href="#installation"></a></h2>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">$ component install component/emitter</code></pre><h2 id="api">API<a href="#api"></a></h2>
+<h3 id="emitter-obj-">Emitter(obj)<a href="#emitter-obj-"></a></h3>
+<p>  The <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">Emitter</code> may also be used as a mixin. For example
+  a &quot;plain&quot; object may become an emitter, or you may
+  extend an existing prototype.</p>
+<p>  As an <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">Emitter</code> instance:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> Emitter = require(<span class="string" style="color:#2aa198;">'emitter'</span>);
+<span class="keyword" style="color:#859900;">var</span> emitter = <span class="keyword" style="color:#859900;">new</span> Emitter;
+emitter.emit(<span class="string" style="color:#2aa198;">'something'</span>);</code></pre><p>  As a mixin:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> Emitter = require(<span class="string" style="color:#2aa198;">'emitter'</span>);
+<span class="keyword" style="color:#859900;">var</span> user = { name: <span class="string" style="color:#2aa198;">'tobi'</span> };
+Emitter(user);
+
+user.emit(<span class="string" style="color:#2aa198;">'im a user'</span>);</code></pre><p>  As a prototype mixin:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> Emitter = require(<span class="string" style="color:#2aa198;">'emitter'</span>);
+Emitter(User.prototype);</code></pre><h3 id="-on-event-fn-">.on(event, fn)<a href="#-on-event-fn-"></a></h3>
+<p>  Register an <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">event</code> handler <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">fn</code>.</p>
+<h3 id="-once-event-fn-">.once(event, fn)<a href="#-once-event-fn-"></a></h3>
+<p>  Register a single-shot <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">event</code> handler <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">fn</code>,
+  removed immediately after it is invoked the
+  first time.</p>
+<h3 id="-off-event-fn-">.off(event, fn)<a href="#-off-event-fn-"></a></h3>
+<p>  Remove <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">event</code> handler <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">fn</code>, or pass only the <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">event</code>
+  name to remove all handlers for <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">event</code>.</p>
+<h3 id="-emit-event-">.emit(event, ...)<a href="#-emit-event-"></a></h3>
+<p>  Emit an <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">event</code> with variable option args.</p>
+<h3 id="-listeners-event-">.listeners(event)<a href="#-listeners-event-"></a></h3>
+<p>  Return an array of callbacks, or an empty array.</p>
+<h3 id="-haslisteners-event-">.hasListeners(event)<a href="#-haslisteners-event-"></a></h3>
+<p>  Check if this emitter has <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">event</code> handlers.</p>

@@ -1,0 +1,123 @@
+<h1 id="model">model</h1>
+<p>  W.I.P minimalistic extensible model component.</p>
+<h2 id="api">API<a href="#api"></a></h2>
+<h3 id="model-name-">model(name)<a href="#model-name-"></a></h3>
+<p>  Create a new model with the given <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">name</code>.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> model = require(<span class="string" style="color:#2aa198;">'model'</span>);
+<span class="keyword" style="color:#859900;">var</span> User = model(<span class="string" style="color:#2aa198;">'User'</span>);</code></pre><h3 id="-attr-name-meta-">.attr(name, [meta])<a href="#-attr-name-meta-"></a></h3>
+<p>  Define an attribute <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">name</code> with optional <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">meta</code> data object.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> model = require(<span class="string" style="color:#2aa198;">'model'</span>);
+
+<span class="keyword" style="color:#859900;">var</span> Post = model(<span class="string" style="color:#2aa198;">'Post'</span>)
+  .attr(<span class="string" style="color:#2aa198;">'id'</span>)
+  .attr(<span class="string" style="color:#2aa198;">'title'</span>)
+  .attr(<span class="string" style="color:#2aa198;">'body'</span>)
+  .attr(<span class="string" style="color:#2aa198;">'created_at'</span>)
+  .attr(<span class="string" style="color:#2aa198;">'updated_at'</span>)</code></pre><p>  With meta data used by plugins:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> model = require(<span class="string" style="color:#2aa198;">'model'</span>);
+
+<span class="keyword" style="color:#859900;">var</span> Post = model(<span class="string" style="color:#2aa198;">'Post'</span>)
+  .attr(<span class="string" style="color:#2aa198;">'id'</span>, { required: <span class="literal">true</span>, type: <span class="string" style="color:#2aa198;">'number'</span> })
+  .attr(<span class="string" style="color:#2aa198;">'title'</span>, { required: <span class="literal">true</span>, type: <span class="string" style="color:#2aa198;">'string'</span> })
+  .attr(<span class="string" style="color:#2aa198;">'body'</span>, { required: <span class="literal">true</span>, type: <span class="string" style="color:#2aa198;">'string'</span> })
+  .attr(<span class="string" style="color:#2aa198;">'created_at'</span>, { type: <span class="string" style="color:#2aa198;">'date'</span> })
+  .attr(<span class="string" style="color:#2aa198;">'updated_at'</span>, { type: <span class="string" style="color:#2aa198;">'date'</span> })</code></pre><h3 id="-validate-fn-">.validate(fn)<a href="#-validate-fn-"></a></h3>
+<p>  TODO: validation callback docs</p>
+<h3 id="-use-fn-">.use(fn)<a href="#-use-fn-"></a></h3>
+<p>  TODO: plugin docs</p>
+<h3 id="-url-path-">.url([path])<a href="#-url-path-"></a></h3>
+<p>  Return base url, or url to <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">path</code>.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">User.url()
+<span class="comment" style="color:#93a1a1;font-style:italic;">// =&gt; "/users"</span>
+
+User.url(<span class="string" style="color:#2aa198;">'add'</span>)
+<span class="comment" style="color:#93a1a1;font-style:italic;">// =&gt; "/users/add"</span></code></pre><h3 id="-route-path-">.route(path)<a href="#-route-path-"></a></h3>
+<p>  Set base path for urls.
+  Note this is defaulted to <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">&#39;/&#39; + modelName.toLowerCase() + &#39;s&#39;</code></p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">User.route(<span class="string" style="color:#2aa198;">'/api/u'</span>)
+
+User.url()
+<span class="comment" style="color:#93a1a1;font-style:italic;">// =&gt; "/api/u"</span>
+
+User.url(<span class="string" style="color:#2aa198;">'add'</span>)
+<span class="comment" style="color:#93a1a1;font-style:italic;">// =&gt; "/api/u/add"</span></code></pre><h3 id="-headers-header-value-">.headers({header: value})<a href="#-headers-header-value-"></a></h3>
+<p>  Sets custom headers for static and method requests on the model.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">User.headers({
+  'X-CSRF-Token': 'some token',
+  'X-API-Token': 'api token 
+});</code></pre><h3 id="-attr-">.ATTR()<a href="#-attr-"></a></h3>
+<p>  &quot;Getter&quot; function generated when <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">Model.attr(name)</code> is called.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> Post = model(<span class="string" style="color:#2aa198;">'Post'</span>)
+  .attr(<span class="string" style="color:#2aa198;">'title'</span>)
+  .attr(<span class="string" style="color:#2aa198;">'body'</span>)
+
+<span class="keyword" style="color:#859900;">var</span> post = <span class="keyword" style="color:#859900;">new</span> Post;
+post.title(<span class="string" style="color:#2aa198;">'Ferrets'</span>)
+post.body(<span class="string" style="color:#2aa198;">'Make really good pets'</span>)</code></pre><h3 id="-attr-value-">.ATTR(value)</h3>
+<p>  &quot;Setter&quot; function generated when <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">Model.attr(name)</code> is called.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> Post = model(<span class="string" style="color:#2aa198;">'Post'</span>)
+  .attr(<span class="string" style="color:#2aa198;">'title'</span>)
+  .attr(<span class="string" style="color:#2aa198;">'body'</span>)
+
+<span class="keyword" style="color:#859900;">var</span> post = <span class="keyword" style="color:#859900;">new</span> Post({ title: <span class="string" style="color:#2aa198;">'Cats'</span> });
+
+post.title()
+<span class="comment" style="color:#93a1a1;font-style:italic;">// =&gt; "Cats"</span>
+
+post.title(<span class="string" style="color:#2aa198;">'Ferrets'</span>)
+post.title()
+<span class="comment" style="color:#93a1a1;font-style:italic;">// =&gt; "Ferrets"</span></code></pre><ul>
+<li>Emits &quot;change&quot; event with <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">(name, value, previousValue)</code>.</li>
+<li>Emits &quot;change ATTR&quot; event with <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">(value, previousValue)</code>.</li>
+</ul>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">post.on(<span class="string" style="color:#2aa198;">'change'</span>, <span class="keyword" style="color:#859900;">function</span>(name, val, prev){
+  console.log(<span class="string" style="color:#2aa198;">'changed %s from %s to %s'</span>, name, prev, val)
+})
+
+post.on(<span class="string" style="color:#2aa198;">'change title'</span>, <span class="keyword" style="color:#859900;">function</span>(val, prev){
+  console.log(<span class="string" style="color:#2aa198;">'changed title'</span>)
+})</code></pre><h3 id="-isnew-">.isNew()<a href="#-isnew-"></a></h3>
+<p>  Returns <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">true</code> if the model is unsaved.</p>
+<h3 id="-tojson-">.toJSON()<a href="#-tojson-"></a></h3>
+<p>  Return a JSON representation of the model (its attributes).</p>
+<h3 id="-has-attr-">.has(attr)<a href="#-has-attr-"></a></h3>
+<p>  Check if <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">attr</code> is non-<code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">null</code>.</p>
+<h3 id="-get-attr-">.get(attr)<a href="#-get-attr-"></a></h3>
+<p>  Get <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">attr</code>&#39;s value.</p>
+<h3 id="-set-attrs-">.set(attrs)<a href="#-set-attrs-"></a></h3>
+<p>  Set multiple <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">attrs</code>.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">user.set({ name: <span class="string" style="color:#2aa198;">'Tobi'</span>, age: <span class="number" style="color:#2aa198;">2</span> })</code></pre><h3 id="-changed-attr-">.changed([attr])<a href="#-changed-attr-"></a></h3>
+<p>  Check if the model is &quot;dirty&quot; and return an object
+  of changed attributes. Optionally check a specific <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">attr</code>
+  and return a <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">Boolean</code>.</p>
+<h3 id="-error-attr-msg-">.error(attr, msg)<a href="#-error-attr-msg-"></a></h3>
+<p>  Define error <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">msg</code> for <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">attr</code>.</p>
+<h3 id="-isvalid-">.isValid()<a href="#-isvalid-"></a></h3>
+<p>  Run validations and check if the model is valid.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">user.isValid()
+<span class="comment" style="color:#93a1a1;font-style:italic;">// =&gt; false</span>
+
+user.errors
+<span class="comment" style="color:#93a1a1;font-style:italic;">// =&gt; [{ attr: ..., message: ... }]</span></code></pre><h3 id="-url-path-">.url([path])</h3>
+<p>  Return this model&#39;s base url or relative to <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">path</code>:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> user = <span class="keyword" style="color:#859900;">new</span> User({ id: <span class="number" style="color:#2aa198;">5</span> });
+user.url(<span class="string" style="color:#2aa198;">'edit'</span>);
+<span class="comment" style="color:#93a1a1;font-style:italic;">// =&gt; "/users/5/edit"</span></code></pre><h3 id="-save-fn-">.save(fn)<a href="#-save-fn-"></a></h3>
+<p>  Save or update and invoke the given callback <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">fn(err)</code>.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> user = <span class="keyword" style="color:#859900;">new</span> User({ name: <span class="string" style="color:#2aa198;">'Tobi'</span> })
+
+user.save(<span class="keyword" style="color:#859900;">function</span>(err){
+
+})</code></pre><p>  Emits &quot;save&quot; when complete.</p>
+<h3 id="-destroy-fn-">.destroy([fn])<a href="#-destroy-fn-"></a></h3>
+<p>  Destroy and invoke optional <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">fn(err)</code>.</p>
+<p>  Emits &quot;destroy&quot; when successfully deleted.</p>
+<h2 id="links">Links<a href="#links"></a></h2>
+<ul>
+<li><a href="https://github.com/component/model/wiki/Plugins">Plugins</a> for model</li>
+</ul>
+<h2 id="testing">Testing<a href="#testing"></a></h2>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">$ npm install
+$ make test &amp;
+$ open http://localhost:3000</code></pre><h1 id="license">License</h1>
+<p>  MIT</p>

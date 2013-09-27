@@ -1,0 +1,21 @@
+<h1 id="spin">spin</h1>
+<p>  Higher level spinner API auto positioning and scaling
+  to fit within the target element. Built on <a href="https://github.com/component/spinner">component/spinner</a>.</p>
+<p>  <img src="http://i.cloudup.com/7F5SguoUkoB+e4r.png" alt="javascript spinner"></p>
+<h2 id="installation">Installation<a href="#installation"></a></h2>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">$ component install component/spin</code></pre><h2 id="api">API<a href="#api"></a></h2>
+<h3 id="spin-el-options-">spin(el, [options])<a href="#spin-el-options-"></a></h3>
+<p>  Add a spinner to <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">el</code> with options, and return
+  the <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">Spinner</code> instance.</p>
+<ul>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">size</code> defaulting to 1/5th the element width</li>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">delay</code> default to 300ms</li>
+</ul>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> s = spin(document.querySelector(<span class="string" style="color:#2aa198;">'.one'</span>));</code></pre><h3 id="-update-">.update()<a href="#-update-"></a></h3>
+<p>  Augments the <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">Spinner</code> returned with an <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">.update()</code> method,
+  which updates the size and position of the spinner.</p>
+<h3 id="-remove-">.remove()<a href="#-remove-"></a></h3>
+<p>  Augments the <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">Spinner</code> returned with a <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">.remove()</code> method,
+  which when removes the spinner or cancels delayed spinners.</p>
+<h2 id="license">License<a href="#license"></a></h2>
+<p>  MIT</p>

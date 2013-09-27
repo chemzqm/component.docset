@@ -1,0 +1,145 @@
+<h1 id="superagent">SuperAgent</h1>
+<p>Super Agent is light-weight progressive ajax API crafted for flexibility, readability, and a low learning curve after being frustrated with many of the existing request APIs. It also works with Node.js!</p>
+<h2 id="install">install<a href="#install"></a></h2>
+<p>As component</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">component install visionmedia/superagent</code></pre><p>Node.js</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">npm install superagent</code></pre><h3 id="request">request<a href="#request"></a></h3>
+<p>Super Agent is light-weight progressive ajax API crafted for flexibility, readability, and a low learning curve after being frustrated with many of the existing request APIs. It also works with Node.js!</p>
+<h3 id="-post-url-">.post(url)<a href="#-post-url-"></a></h3>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">request
+  .post(<span class="string" style="color:#2aa198;">'/api/pet'</span>)
+  .send({ name: <span class="string" style="color:#2aa198;">'Manny'</span>, species: <span class="string" style="color:#2aa198;">'cat'</span> })
+  .set(<span class="string" style="color:#2aa198;">'X-API-Key'</span>, <span class="string" style="color:#2aa198;">'foobar'</span>)
+  .set(<span class="string" style="color:#2aa198;">'Accept'</span>, <span class="string" style="color:#2aa198;">'application/json'</span>)
+  .end(<span class="keyword" style="color:#859900;">function</span>(res){
+    <span class="keyword" style="color:#859900;">if</span> (res.ok) {
+     alert(<span class="string" style="color:#2aa198;">'yay got '</span> + JSON.stringify(res.body));
+    } <span class="keyword" style="color:#859900;">else</span> {
+     alert(<span class="string" style="color:#2aa198;">'Oh no! error '</span> + res.text);
+    }
+  });</code></pre><h3 id="-get-url-">.get(url)<a href="#-get-url-"></a></h3>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">request
+  .get(<span class="string" style="color:#2aa198;">'/search'</span>)
+  .set(<span class="string" style="color:#2aa198;">'API-Key'</span>, <span class="string" style="color:#2aa198;">'foobar'</span>)
+  .set(<span class="string" style="color:#2aa198;">'Accept'</span>, <span class="string" style="color:#2aa198;">'application/json'</span>)
+  .query({ query: <span class="string" style="color:#2aa198;">'Manny'</span>, range: <span class="string" style="color:#2aa198;">'1..5'</span>, order: <span class="string" style="color:#2aa198;">'desc'</span> })
+  .end(<span class="keyword" style="color:#859900;">function</span>(res){
+    <span class="keyword" style="color:#859900;">if</span> (res.ok) {
+      alert(res.body);
+    }
+  });</code></pre><h3 id="-head-url-">.head(url)<a href="#-head-url-"></a></h3>
+<h3 id="-del-url-">.del(url)<a href="#-del-url-"></a></h3>
+<p>For <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">DELETE</code> <strong>HTTP METHOD</strong></p>
+<h3 id="-put-url-">.put(url)<a href="#-put-url-"></a></h3>
+<h3 id="-set-">.set()<a href="#-set-"></a></h3>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="comment" style="color:#93a1a1;font-style:italic;">//set one header</span>
+.set(<span class="string" style="color:#2aa198;">'Accept'</span>, <span class="string" style="color:#2aa198;">'application/json'</span>)
+
+<span class="comment" style="color:#93a1a1;font-style:italic;">//set header with object</span>
+.set({ <span class="string" style="color:#2aa198;">'API-Key'</span>: <span class="string" style="color:#2aa198;">'foobar'</span>, Accept: <span class="string" style="color:#2aa198;">'application/json'</span> })</code></pre><h3 id="-query-">.query()<a href="#-query-"></a></h3>
+<p>The following will produce the path <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">/search?query=Manny&amp;range=1..5&amp;order=desc</code>.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">request
+  .get(<span class="string" style="color:#2aa198;">'/search'</span>)
+  .query({ query: <span class="string" style="color:#2aa198;">'Manny'</span> })
+  .query({ range: <span class="string" style="color:#2aa198;">'1..5'</span> })
+  .query({ order: <span class="string" style="color:#2aa198;">'desc'</span> })
+  .end(<span class="keyword" style="color:#859900;">function</span>(res){
+
+  });</code></pre><p>Or as a single object:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">request
+  .get(<span class="string" style="color:#2aa198;">'/search'</span>)
+  .query({ query: <span class="string" style="color:#2aa198;">'Manny'</span>, range: <span class="string" style="color:#2aa198;">'1..5'</span>, order: <span class="string" style="color:#2aa198;">'desc'</span> })
+  .end(<span class="keyword" style="color:#859900;">function</span>(res){
+
+  });</code></pre><p>The <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">.query()</code> method accepts strings as well:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">request
+  .get(<span class="string" style="color:#2aa198;">'/querystring'</span>)
+  .query(<span class="string" style="color:#2aa198;">'search=Manny&amp;range=1..5'</span>)
+  .end(<span class="keyword" style="color:#859900;">function</span>(res){
+
+  });</code></pre><h3 id="-send-">.send()<a href="#-send-"></a></h3>
+<p>Send object</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">request.post(<span class="string" style="color:#2aa198;">'/user'</span>)
+  .send({ name: <span class="string" style="color:#2aa198;">'tj'</span>, pet: <span class="string" style="color:#2aa198;">'tobi'</span> })
+  .end(callback)</code></pre><p>Or using multiple <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">.send()</code> calls</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">request.post(<span class="string" style="color:#2aa198;">'/user'</span>)
+  .send({ name: <span class="string" style="color:#2aa198;">'tj'</span> })
+  .send({ pet: <span class="string" style="color:#2aa198;">'tobi'</span> })
+  .end(callback)</code></pre><h3 id="-type-">.type()<a href="#-type-"></a></h3>
+<p><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">json</code>, <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">form</code>, <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">xml</code>, <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">png</code> is supported, default is <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">json</code>.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">request.post(<span class="string" style="color:#2aa198;">'/user'</span>)
+  .type(<span class="string" style="color:#2aa198;">'form'</span>)
+  .send({ name: <span class="string" style="color:#2aa198;">'tj'</span> })
+  .send({ pet: <span class="string" style="color:#2aa198;">'tobi'</span> })
+  .end(callback)</code></pre><h3 id="-abort-">.abort()<a href="#-abort-"></a></h3>
+<p>Abort requests</p>
+<h3 id="-timeout-ms-">.timeout(ms)<a href="#-timeout-ms-"></a></h3>
+<p>A timeout can be applied by invoking <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">req.timeout(ms)</code>, after which an error will be triggered. To differentiate between other errors the <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">err.timeout</code> property is set to the <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">ms</code> value. <strong>NOTE</strong> that this is a timeout applied to the request and all subsequent redirects, not per request.</p>
+<h3 id="-auth-name-pass-">.auth(name, pass)<a href="#-auth-name-pass-"></a></h3>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">request
+  .get(<span class="string" style="color:#2aa198;">'http://local'</span>)
+  .auth(<span class="string" style="color:#2aa198;">'tobo'</span>, <span class="string" style="color:#2aa198;">'learnboost'</span>)
+  .end(callback);</code></pre><h2 id="piping-data">Piping data<a href="#piping-data"></a></h2>
+<p>The Node client allows you to pipe data to and from the request. For example piping a file&#39;s contents as the request:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> request = require(<span class="string" style="color:#2aa198;">'superagent'</span>)
+  , fs = require(<span class="string" style="color:#2aa198;">'fs'</span>);
+
+<span class="keyword" style="color:#859900;">var</span> stream = fs.createReadStream(<span class="string" style="color:#2aa198;">'path/to/my.json'</span>);
+<span class="keyword" style="color:#859900;">var</span> req = request.post(<span class="string" style="color:#2aa198;">'/somewhere'</span>);
+req.type(<span class="string" style="color:#2aa198;">'json'</span>);
+stream.pipe(req);</code></pre><p>Or piping the response to a file:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> request = require(<span class="string" style="color:#2aa198;">'superagent'</span>)
+  , fs = require(<span class="string" style="color:#2aa198;">'fs'</span>);
+
+<span class="keyword" style="color:#859900;">var</span> stream = fs.createWriteStream(<span class="string" style="color:#2aa198;">'path/to/my.json'</span>);
+<span class="keyword" style="color:#859900;">var</span> req = request.get(<span class="string" style="color:#2aa198;">'/some.json'</span>);
+req.pipe(stream);</code></pre><h2 id="multipart-requests">Multipart requests<a href="#multipart-requests"></a></h2>
+<p>Super Agent is also great for building multipart requests, providing a both low-level and high-level APIs.</p>
+<p>The low-level API uses <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">Part</code>s to represent a file or field. The <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">.part()</code> method returns a new <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">Part</code>, which provides an API similar to the request itself.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> req = request.post(<span class="string" style="color:#2aa198;">'/upload'</span>);
+
+req.part()
+ .set(<span class="string" style="color:#2aa198;">'Content-Type'</span>, <span class="string" style="color:#2aa198;">'image/png'</span>)
+ .set(<span class="string" style="color:#2aa198;">'Content-Disposition'</span>, <span class="string" style="color:#2aa198;">'attachment; filename="myimage.png"'</span>)
+ .write(<span class="string" style="color:#2aa198;">'some image data'</span>)
+ .write(<span class="string" style="color:#2aa198;">'some more image data'</span>);
+
+req.part()
+ .set(<span class="string" style="color:#2aa198;">'Content-Disposition'</span>, <span class="string" style="color:#2aa198;">'form-data; name="name"'</span>)
+ .set(<span class="string" style="color:#2aa198;">'Content-Type'</span>, <span class="string" style="color:#2aa198;">'text/plain'</span>)
+ .write(<span class="string" style="color:#2aa198;">'tobi'</span>);
+
+req.end(callback);</code></pre><h3 id="-attach-name-path-filename-">.attach(name, [path], [filename])<a href="#-attach-name-path-filename-"></a></h3>
+<p>As mentioned a higher-level API is also provided, in the form of <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">.attach(name, [path], [filename]</code>) and <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">.field(name, value)</code>. Attaching several files is simple, you can also provide a custom filename for the attachment, otherwise the basename of the attached file is used.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">request
+  .post(<span class="string" style="color:#2aa198;">'/upload'</span>)
+  .attach(<span class="string" style="color:#2aa198;">'avatar'</span>, <span class="string" style="color:#2aa198;">'path/to/tobi.png'</span>, <span class="string" style="color:#2aa198;">'user.png'</span>)
+  .attach(<span class="string" style="color:#2aa198;">'image'</span>, <span class="string" style="color:#2aa198;">'path/to/loki.png'</span>)
+  .attach(<span class="string" style="color:#2aa198;">'file'</span>, <span class="string" style="color:#2aa198;">'path/to/jane.png'</span>)
+  .end(callback);</code></pre><h3 id="-field-name-value-">.field(name, value)<a href="#-field-name-value-"></a></h3>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">request
+  .post(<span class="string" style="color:#2aa198;">'/upload'</span>)
+  .field(<span class="string" style="color:#2aa198;">'user[name]'</span>, <span class="string" style="color:#2aa198;">'Tobi'</span>)
+  .field(<span class="string" style="color:#2aa198;">'user[email]'</span>, <span class="string" style="color:#2aa198;">'tobi@learnboost.com'</span>)
+  .attach(<span class="string" style="color:#2aa198;">'image'</span>, <span class="string" style="color:#2aa198;">'path/to/tobi.png'</span>)
+  .end(callback);</code></pre><h2 id="error-handling">Error handling<a href="#error-handling"></a></h2>
+<p>When an error occurs super agent will first check the arity of the callback function given, if two parameters are present the error is passed, as shown below:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">request
+  .post(<span class="string" style="color:#2aa198;">'/upload'</span>)
+  .attach(<span class="string" style="color:#2aa198;">'image'</span>, <span class="string" style="color:#2aa198;">'path/to/tobi.png'</span>)
+  .end(<span class="keyword" style="color:#859900;">function</span>(err, res){
+
+  });</code></pre><p>When a callback is omitted, or only a <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">res</code> parameter is present, an &quot;error&quot; event is emitted:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">request
+  .post(<span class="string" style="color:#2aa198;">'/upload'</span>)
+  .attach(<span class="string" style="color:#2aa198;">'image'</span>, <span class="string" style="color:#2aa198;">'path/to/tobi.png'</span>)
+  .on(<span class="string" style="color:#2aa198;">'error'</span>, handle)
+  .end(<span class="keyword" style="color:#859900;">function</span>(res){
+
+  });</code></pre><p>Note that a 4xx or 5xx response with super agent is not considered an error by default. For example if you get a 500 or 403 response, this status information will be available via <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">res.error,</code> <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">res.status</code> and the others mentioned in &quot;Response properties&quot;, however no <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">Error</code> object is passed for these responses. An error includes network failures, parsing errors, etcetera.</p>
+<p>When an HTTP error occurs (4xx or 5xx response) the <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">res.error</code> property is an <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">Error</code> object, this allows you to perform checks such as:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">if</span> (res.error) {
+  alert(<span class="string" style="color:#2aa198;">'oh no '</span> + res.error.message);
+} <span class="keyword" style="color:#859900;">else</span> {
+  alert(<span class="string" style="color:#2aa198;">'got '</span> + res.status + <span class="string" style="color:#2aa198;">' response'</span>);
+}</code></pre>

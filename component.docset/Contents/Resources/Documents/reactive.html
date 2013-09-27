@@ -1,0 +1,132 @@
+<h1 id="reactive">reactive</h1>
+<p>  Reactive template engine for robust real-time rendering of model data changes.</p>
+<h2 id="installation">Installation<a href="#installation"></a></h2>
+<p> With component:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">$ component install component/reactive</code></pre><p> With the stand-alone browser build:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">&lt;script src=<span class="string" style="color:#2aa198;">"reactive.js"</span>&gt;&lt;/script&gt;</code></pre><h2 id="api">API<a href="#api"></a></h2>
+<h3 id="reactive-element-object-view-">reactive(element, object, [view])<a href="#reactive-element-object-view-"></a></h3>
+<p>  Bind <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">object</code> to the given <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">element</code> with optional <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">view</code> object. When a <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">view</code> object is present it will be checked first for overrides, which otherwise delegate to the model <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">object</code>.</p>
+<p>For example if you have the following HTML:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">h1</span> <span class="attribute" style="color:#b58900;">data-text</span>=<span class="value" style="color:#2aa198;">"name"</span>&gt;</span><span class="tag">&lt;/<span class="title" style="color:#268bd2;">h1</span>&gt;</span></code></pre><p>And pass the following <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">object</code> as the <em>second</em> argument:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">{
+  name: <span class="string" style="color:#2aa198;">'Tobi'</span>
+}</code></pre><p>The output will become:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">h1</span>&gt;</span>Tobi<span class="tag">&lt;/<span class="title" style="color:#268bd2;">h1</span>&gt;</span></code></pre><p>However if you wish to manipulate the output or provided computed properties thae <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">view</code> object may be passed. For example an <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">object</code> of:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">{
+  first_name: <span class="string" style="color:#2aa198;">"Tobi"</span>,
+  last_name: <span class="string" style="color:#2aa198;">"Ferret"</span>
+}</code></pre><p>And a <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">view</code> of:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="function"><span class="keyword" style="color:#859900;">function</span> <span class="title" style="color:#268bd2;">UserView</span><span class="params">(user)</span> {</span>
+  <span class="keyword" style="color:#859900;">this</span>.user = user;
+}
+
+UserView.prototype.name = <span class="keyword" style="color:#859900;">function</span>(){
+  <span class="keyword" style="color:#859900;">return</span> <span class="keyword" style="color:#859900;">this</span>.user.first_name + <span class="string" style="color:#2aa198;">' '</span> + <span class="keyword" style="color:#859900;">this</span>.user.last_name;
+}</code></pre><p>Would produce:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">h1</span>&gt;</span>Tobi Ferret<span class="tag">&lt;/<span class="title" style="color:#268bd2;">h1</span>&gt;</span></code></pre><p>Typically a view object wraps a model to provide additional functionality, this may look something like the following:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="function"><span class="keyword" style="color:#859900;">function</span> <span class="title" style="color:#268bd2;">UserView</span><span class="params">(user)</span> {</span>
+  <span class="keyword" style="color:#859900;">this</span>.user = user;
+  <span class="keyword" style="color:#859900;">this</span>.el = reactive(tmpl, user, <span class="keyword" style="color:#859900;">this</span>);
+}
+
+UserView.prototype.name = <span class="keyword" style="color:#859900;">function</span>(){ ... }</code></pre><p>Often a higher-level API is built on top of this pattern to keep things DRY but this is left to your application / other libraries.</p>
+<h2 id="adapters">Adapters<a href="#adapters"></a></h2>
+<h3 id="-subscribe-fn-">.subscribe(Fn)<a href="#-subscribe-fn-"></a></h3>
+<h3 id="-unsubscribe-fn-">.unsubscribe(Fn)<a href="#-unsubscribe-fn-"></a></h3>
+<p> Subscriptions allow reactive to know when an object&#39;s data has changed updating the DOM appropriately <em>without</em> re-rendering a static template. This means if you make manual DOM adjustments, append canvases etc they will remain intact.</p>
+<p>  By default reactive subscribes using <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">.on(&quot;change &lt;name&gt;&quot;, callback)</code> however it&#39;s easy to define your own subscription methods:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">reactive.subscribe(<span class="keyword" style="color:#859900;">function</span>(obj, prop, fn){
+  obj.bind(prop, fn);
+});
+
+reactive.unsubscribe(<span class="keyword" style="color:#859900;">function</span>(obj, prop, fn){
+  obj.unbind(prop, fn);
+});</code></pre><h3 id="-get-obj-prop-">.get(obj, prop)<a href="#-get-obj-prop-"></a></h3>
+<h3 id="-set-obj-prop-val-">.set(obj, prop, val)<a href="#-set-obj-prop-val-"></a></h3>
+<p>You can make reactive compatible with your favorite framework by defining how reactive gets and sets the model.</p>
+<p>By default reactive supports <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">obj[prop] = val</code> and <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">obj[prop](val)</code>, but these can be changed with <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">reactive.get(fn)</code> and <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">reactive.set(fn)</code>. Here&#39;s how to make reactive compatible with backbone:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">reactive.get(<span class="keyword" style="color:#859900;">function</span>(obj, prop) {
+  <span class="keyword" style="color:#859900;">return</span> obj.get(prop);
+});
+
+reactive.set(<span class="keyword" style="color:#859900;">function</span>(obj, prop, val) {
+  obj.set(prop, val);
+});</code></pre><h2 id="interpolation">Interpolation<a href="#interpolation"></a></h2>
+<p>  Bindings may be applied via interoplation on attributes or text. For example here
+  is a simple use of this feature to react to changes of an article&#39;s <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">.name</code> property:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">article</span>&gt;</span>
+  <span class="tag">&lt;<span class="title" style="color:#268bd2;">h2</span>&gt;</span>{name}<span class="tag">&lt;/<span class="title" style="color:#268bd2;">h2</span>&gt;</span>
+<span class="tag">&lt;/<span class="title" style="color:#268bd2;">article</span>&gt;</span></code></pre><p>  Text interpolation may appear anywhere within the copy, and may contain complex JavaScript expressions
+  for defaulting values or other operations.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">article</span>&gt;</span>
+  <span class="tag">&lt;<span class="title" style="color:#268bd2;">h2</span>&gt;</span>{ name || 'Untitled' }<span class="tag">&lt;/<span class="title" style="color:#268bd2;">h2</span>&gt;</span>
+  <span class="tag">&lt;<span class="title" style="color:#268bd2;">p</span>&gt;</span>Summary: { body.slice(0, 10) }<span class="tag">&lt;/<span class="title" style="color:#268bd2;">p</span>&gt;</span>
+<span class="tag">&lt;/<span class="title" style="color:#268bd2;">article</span>&gt;</span></code></pre><p> Reactive is smart enough to pick out multiple properties that may be used, and
+ react to any of their changes:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">p</span>&gt;</span>Welcome { first + ' ' + last }.<span class="tag">&lt;/<span class="title" style="color:#268bd2;">p</span>&gt;</span></code></pre><p> Interpolation works for attributes as well, reacting to changes as you&#39;d expect:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">li</span> <span class="attribute" style="color:#b58900;">class</span>=<span class="value" style="color:#2aa198;">"file-{id}"</span>&gt;</span>
+  <span class="tag">&lt;<span class="title" style="color:#268bd2;">h3</span>&gt;</span>{filename}<span class="tag">&lt;/<span class="title" style="color:#268bd2;">h3</span>&gt;</span>
+  <span class="tag">&lt;<span class="title" style="color:#268bd2;">p</span>&gt;</span><span class="tag">&lt;<span class="title" style="color:#268bd2;">a</span> <span class="attribute" style="color:#b58900;">href</span>=<span class="value" style="color:#2aa198;">"/files/{id}/download"</span>&gt;</span>Download {filename}<span class="tag">&lt;/<span class="title" style="color:#268bd2;">a</span>&gt;</span><span class="tag">&lt;/<span class="title" style="color:#268bd2;">p</span>&gt;</span>
+<span class="tag">&lt;<span class="title" style="color:#268bd2;">li</span>&gt;</span></code></pre><h2 id="declarative-bindings">Declarative Bindings<a href="#declarative-bindings"></a></h2>
+<p>  By default reactive supplies bindings for setting properties, listening to events, toggling visibility, appending and replacing elements. Most of these start with &quot;data-*&quot; however this is not required.</p>
+<h3 id="-data-text">&#39;data-text<a href="#-data-text"></a></h3>
+<p>The `data-text binding sets the text content of an element.</p>
+<h3 id="-data-html">&#39;data-html<a href="#-data-html"></a></h3>
+<p>The <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">data-html</code> binding sets the inner html of an element.</p>
+<h3 id="-data-attr-">&#39;data-<attr></attr><a href="#-data-attr-"></a></h3>
+<p>The <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">data-&lt;attr&gt;</code> bindings allows you to set an attribute:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">a</span> <span class="attribute" style="color:#b58900;">data-href</span>=<span class="value" style="color:#2aa198;">"download_url"</span>&gt;</span>Download<span class="tag">&lt;/<span class="title" style="color:#268bd2;">a</span>&gt;</span></code></pre><h3 id="-on-event-">&#39;on-<event></event><a href="#-on-event-"></a></h3>
+<p>The <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">on-&lt;event&gt;</code> bindings allow you to listen on an event:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">li</span> <span class="attribute" style="color:#b58900;">data-text</span>=<span class="value" style="color:#2aa198;">"title"</span>&gt;</span><span class="tag">&lt;<span class="title" style="color:#268bd2;">a</span> <span class="attribute" style="color:#b58900;">on-click</span>=<span class="value" style="color:#2aa198;">"remove"</span>&gt;</span>x<span class="tag">&lt;/<span class="title" style="color:#268bd2;">a</span>&gt;</span><span class="tag">&lt;/<span class="title" style="color:#268bd2;">li</span>&gt;</span></code></pre><h3 id="-data-append">&#39;data-append<a href="#-data-append"></a></h3>
+<p>  The <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">data-append</code> binding allows you to append an existing element:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">div</span> <span class="attribute" style="color:#b58900;">class</span>=<span class="value" style="color:#2aa198;">"photo"</span> <span class="attribute" style="color:#b58900;">data-append</span>=<span class="value" style="color:#2aa198;">"histogram"</span>&gt;</span>
+
+<span class="tag">&lt;/<span class="title" style="color:#268bd2;">div</span>&gt;</span></code></pre><h3 id="-data-replace">&#39;data-replace<a href="#-data-replace"></a></h3>
+<p>  The <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">data-replace</code> binding allows you to replace an existing element:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">div</span> <span class="attribute" style="color:#b58900;">class</span>=<span class="value" style="color:#2aa198;">"photo"</span> <span class="attribute" style="color:#b58900;">data-replace</span>=<span class="value" style="color:#2aa198;">"histogram"</span>&gt;</span>
+
+<span class="tag">&lt;/<span class="title" style="color:#268bd2;">div</span>&gt;</span></code></pre><h3 id="-data-show-hide-">&#39;data-{show,hide}<a href="#-data-show-hide-"></a></h3>
+<p>  The <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">data-show</code> and <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">data-hide</code> bindings conditionally add &quot;show&quot; or &quot;hide&quot; classnames so that you may style an element as hidden or visible.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">p</span> <span class="attribute" style="color:#b58900;">data-show</span>=<span class="value" style="color:#2aa198;">"hasDescription"</span> <span class="attribute" style="color:#b58900;">data-text</span>=<span class="value" style="color:#2aa198;">"truncatedDescription"</span>&gt;</span><span class="tag">&lt;/<span class="title" style="color:#268bd2;">p</span>&gt;</span></code></pre><h3 id="-data-checked">&#39;data-checked<a href="#-data-checked"></a></h3>
+<p> Toggles checkbox state:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">input</span> <span class="attribute" style="color:#b58900;">type</span>=<span class="value" style="color:#2aa198;">"checkbox"</span> <span class="attribute" style="color:#b58900;">data-checked</span>=<span class="value" style="color:#2aa198;">"agreed_to_terms"</span>&gt;</span></code></pre><h2 id="writing-bindings">Writing bindings<a href="#writing-bindings"></a></h2>
+<p>To author bindings simply call the <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">reactive.bind(name, fn)</code> method, passing the binding name and a callback which is invoked with the element itself and the value. For example here is a binding which removes an element when truthy:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">reactive.bind(<span class="string" style="color:#2aa198;">'remove-if'</span>, <span class="keyword" style="color:#859900;">function</span>(el, name){
+  el = $(el);
+  <span class="keyword" style="color:#859900;">var</span> parent = el.parent();
+  <span class="keyword" style="color:#859900;">this</span>.change(<span class="keyword" style="color:#859900;">function</span>(){
+    <span class="keyword" style="color:#859900;">if</span> (<span class="keyword" style="color:#859900;">this</span>.value(name)) {
+      el.remove();
+    }
+  });
+});</code></pre><h2 id="computed-properties">Computed properties<a href="#computed-properties"></a></h2>
+<p>Reactive supports computed properties denoted with the <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">&lt;</code> character. Here the <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">fullname</code> property does not exist on the model, it is a combination of both <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">.first</code> and <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">.last</code>, however you must tell Reactive about the real properties in order for it to react appropriately:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">h1</span> <span class="attribute" style="color:#b58900;">data-text</span>=<span class="value" style="color:#2aa198;">"fullname &lt; first last"</span>&gt;</span><span class="tag">&lt;/<span class="title" style="color:#268bd2;">h1</span>&gt;</span></code></pre><p><strong>NOTE</strong>: in the future Reactive may support hinting of computed properties from <em>outside</em> Reactive itself, as your ORM-ish library may already have this information.</p>
+<h2 id="interpolation">Interpolation<a href="#interpolation"></a></h2>
+<p> Some bindings such as <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">data-text</code> and <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">data-&lt;attr&gt;</code> support interpolation. These properties are automatically added to the subscription, and react to changes:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"> <span class="tag">&lt;<span class="title" style="color:#268bd2;">a</span> <span class="attribute" style="color:#b58900;">data-href</span>=<span class="value" style="color:#2aa198;">"/download/{id}"</span> <span class="attribute" style="color:#b58900;">data-text</span>=<span class="value" style="color:#2aa198;">"Download {filename}"</span>&gt;</span><span class="tag">&lt;/<span class="title" style="color:#268bd2;">a</span>&gt;</span></code></pre><h2 id="notes">Notes<a href="#notes"></a></h2>
+<p>  Get creative! There&#39;s a lot of application-specific logic that can be converted to declarative Reactive bindings. For example here&#39;s a naive &quot;auto-submit&quot; form binding:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="tag">&lt;<span class="title" style="color:#268bd2;">div</span> <span class="attribute" style="color:#b58900;">class</span>=<span class="value" style="color:#2aa198;">"login"</span>&gt;</span>
+  <span class="tag">&lt;<span class="title" style="color:#268bd2;">form</span> <span class="attribute" style="color:#b58900;">action</span>=<span class="value" style="color:#2aa198;">"/user"</span> <span class="attribute" style="color:#b58900;">method</span>=<span class="value" style="color:#2aa198;">"post"</span> <span class="attribute" style="color:#b58900;">autosubmit</span>&gt;</span>
+    <span class="tag">&lt;<span class="title" style="color:#268bd2;">input</span> <span class="attribute" style="color:#b58900;">type</span>=<span class="value" style="color:#2aa198;">"text"</span> <span class="attribute" style="color:#b58900;">name</span>=<span class="value" style="color:#2aa198;">"name"</span> <span class="attribute" style="color:#b58900;">placeholder</span>=<span class="value" style="color:#2aa198;">"Username"</span> /&gt;</span>
+    <span class="tag">&lt;<span class="title" style="color:#268bd2;">input</span> <span class="attribute" style="color:#b58900;">type</span>=<span class="value" style="color:#2aa198;">"password"</span> <span class="attribute" style="color:#b58900;">name</span>=<span class="value" style="color:#2aa198;">"pass"</span> <span class="attribute" style="color:#b58900;">placeholder</span>=<span class="value" style="color:#2aa198;">"Password"</span> /&gt;</span>
+    <span class="tag">&lt;<span class="title" style="color:#268bd2;">input</span> <span class="attribute" style="color:#b58900;">type</span>=<span class="value" style="color:#2aa198;">"submit"</span> <span class="attribute" style="color:#b58900;">value</span>=<span class="value" style="color:#2aa198;">"Login"</span> /&gt;</span>
+  <span class="tag">&lt;/<span class="title" style="color:#268bd2;">form</span>&gt;</span>
+<span class="tag">&lt;/<span class="title" style="color:#268bd2;">div</span>&gt;</span></code></pre><pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> reactive = require(<span class="string" style="color:#2aa198;">'reactive'</span>);
+
+<span class="comment" style="color:#93a1a1;font-style:italic;">// bind</span>
+
+<span class="keyword" style="color:#859900;">var</span> view = reactive(document.querySelector(<span class="string" style="color:#2aa198;">'.login'</span>));
+
+<span class="comment" style="color:#93a1a1;font-style:italic;">// custom binding available to this view only</span>
+
+view.bind(<span class="string" style="color:#2aa198;">'autosubmit'</span>, <span class="keyword" style="color:#859900;">function</span>(el){
+  el.onsubmit = <span class="keyword" style="color:#859900;">function</span>(e){
+    e.preventDefault();
+    <span class="keyword" style="color:#859900;">var</span> path = el.getAttribute(<span class="string" style="color:#2aa198;">'action'</span>);
+    <span class="keyword" style="color:#859900;">var</span> method = el.getAttribute(<span class="string" style="color:#2aa198;">'method'</span>).toUpperCase();
+    console.log(<span class="string" style="color:#2aa198;">'submit to %s %s'</span>, method, path);
+  }
+});</code></pre><p>For more examples view the ./examples directory.</p>
+<h2 id="license">License<a href="#license"></a></h2>
+<p>  MIT</p>

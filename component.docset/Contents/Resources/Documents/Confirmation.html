@@ -1,0 +1,36 @@
+<h1 id="confirmation-popover">Confirmation Popover</h1>
+<p>  Popover confirmation component built on top of <a href="http://github.com/component/popover">Popover</a>.</p>
+<p>  <img src="http://f.cl.ly/items/2H3a3C1M1k071z1B360I/Screen%20Shot%202012-08-06%20at%2012.16.59%20PM.png" alt="js popover confirmation component"></p>
+<h2 id="installation">Installation<a href="#installation"></a></h2>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">$ component install component/confirmation-popover</code></pre><h2 id="features">Features<a href="#features"></a></h2>
+<ul>
+<li>all the features of Popover / Tip</li>
+</ul>
+<h2 id="events">Events<a href="#events"></a></h2>
+<ul>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">show</code> the confirmation is shown</li>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">hide</code> the confirmation is hidden</li>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">cancel</code> the user closed the confirmation or cancelled</li>
+<li><code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">ok</code> the user accepted</li>
+</ul>
+<h2 id="api">API<a href="#api"></a></h2>
+<h3 id="confirmationpopover-msg-title-">ConfirmationPopover(msg, [title])<a href="#confirmationpopover-msg-title-"></a></h3>
+<p>  Create a new popover with <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">msg</code> and optional <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">title</code>.</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> Confirmation = require(<span class="string" style="color:#2aa198;">'confirmation-popover'</span>);
+<span class="keyword" style="color:#859900;">var</span> confirm = <span class="keyword" style="color:#859900;">new</span> Confirmation(<span class="string" style="color:#2aa198;">'This action cannot be undone.'</span>, <span class="string" style="color:#2aa198;">'Delete tobi?'</span>);
+confirm.show(el);</code></pre><h3 id="-focus-type-">.focus(type)<a href="#-focus-type-"></a></h3>
+<p>  By default the &quot;cancel&quot; button is focused, however you
+  may invoke <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">.focus(&#39;ok&#39;)</code>.</p>
+<h3 id="-cancel-text-">.cancel(text)<a href="#-cancel-text-"></a></h3>
+<p>  Set cancel button <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">text</code>.</p>
+<h3 id="-ok-text-">.ok(text)<a href="#-ok-text-"></a></h3>
+<p>  Set cancel ok <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">text</code>.</p>
+<h3 id="-show-el-fn-">.show(el, [fn])<a href="#-show-el-fn-"></a></h3>
+<p>  Attach to <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">el</code>, and invoke <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">fn</code> with
+  a boolean representing the user&#39;s choice.</p>
+<p>  When <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">fn</code> is omitted you may still utilize the <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">cancel</code> / <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">ok</code> events.</p>
+<h4 id="-">...</h4>
+<p>  View <a href="http://github.com/component/tip">Tip</a> and <a href="http://github.com/component/popover">Popover</a> for additional
+  API documentation.</p>
+<h2 id="license">License<a href="#license"></a></h2>
+<p>  MIT</p>

@@ -1,0 +1,24 @@
+<h1 id="type">type</h1>
+<p>  Type assertions aka less-broken <code style="margin:0 0.1em;padding:0 0.2em;background-color:#f8f8f8;border:1px solid #eaeaea;border-radius:3px;">typeof</code>.</p>
+<h2 id="installation">Installation<a href="#installation"></a></h2>
+<p>with node:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">$ npm install component-type</code></pre><p>or in the browser with component:</p>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">$ component install component/type</code></pre><h2 id="example">Example<a href="#example"></a></h2>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;"><span class="keyword" style="color:#859900;">var</span> type = require(<span class="string" style="color:#2aa198;">'type'</span>);
+
+<span class="keyword" style="color:#859900;">var</span> obj = <span class="keyword" style="color:#859900;">new</span> Date;
+<span class="keyword" style="color:#859900;">if</span> (type(obj) == <span class="string" style="color:#2aa198;">'date'</span>) ...</code></pre><h2 id="api">API<a href="#api"></a></h2>
+<pre><code style="display:block;padding:0.5em;background:#fdf6e3;color:#657b83;">type(<span class="keyword" style="color:#859900;">new</span> Date) == <span class="string" style="color:#2aa198;">'date'</span>
+type({}) == <span class="string" style="color:#2aa198;">'object'</span>
+type(<span class="literal">null</span>) == <span class="string" style="color:#2aa198;">'null'</span>
+type(<span class="literal">undefined</span>) == <span class="string" style="color:#2aa198;">'undefined'</span>
+type(<span class="string" style="color:#2aa198;">"hey"</span>) == <span class="string" style="color:#2aa198;">'string'</span>
+type(<span class="literal">true</span>) == <span class="string" style="color:#2aa198;">'boolean'</span>
+type(<span class="literal">false</span>) == <span class="string" style="color:#2aa198;">'boolean'</span>
+type(<span class="number" style="color:#2aa198;">12</span>) == <span class="string" style="color:#2aa198;">'number'</span>
+type(type) == <span class="string" style="color:#2aa198;">'function'</span>
+type(<span class="regexp" style="color:#2aa198;">/asdf/</span>) == <span class="string" style="color:#2aa198;">'regexp'</span>
+type((<span class="keyword" style="color:#859900;">function</span>(){ <span class="keyword" style="color:#859900;">return</span> arguments })()) == <span class="string" style="color:#2aa198;">'arguments'</span>
+type([]) == <span class="string" style="color:#2aa198;">'array'</span>
+type(document.createElement(<span class="string" style="color:#2aa198;">'div'</span>)) == <span class="string" style="color:#2aa198;">'element'</span></code></pre><h2 id="license">License<a href="#license"></a></h2>
+<p>  MIT</p>
